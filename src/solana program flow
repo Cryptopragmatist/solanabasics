@@ -15,4 +15,7 @@ The flow of a program using this structure looks like this:
  processor.rs -> program logic 
  state.rs -> program objects, (de)serializing state 
  error.rs -> program specific errors
- 
+
+ The analogy is that the customer(caller) calls the frontdesk(entrypoint) then it forwards the request to Mr.Processor. Mr.Processor will then
+ consult the manual(instruction.rs) to interpret(decode) the request.After decoding, Mr.Processor will decide what processing function
+ to use to execute the request. Mr processor can use editor (state.rs ) to alter the state of the account.
