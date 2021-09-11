@@ -18,4 +18,10 @@ The flow of a program using this structure looks like this:
 
  The analogy is that the customer(caller) calls the frontdesk(entrypoint) then it forwards the request to Mr.Processor. Mr.Processor will then
  consult the manual(instruction.rs) to interpret(decode) the request.After decoding, Mr.Processor will decide what processing function
- to use to execute the request. Mr processor can use editor (state.rs ) to alter the state of the account.
+ to use to execute the request. Mr processor can use editor (state.rs ) to encode and decode the state (set of data) of the account.
+
+ what is a state? -> set of data
+
+ The global state is a set of data. Most common implementation of a global state is a database.
+
+The global state is mutable. It can be changed with operations that nodes write to the ledger. For example, a database entry with the asset owner name can be changed, so that a new person owns the asset.
