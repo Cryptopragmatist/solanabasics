@@ -1,0 +1,34 @@
+The flow of a program using this structure looks like this:
+
+1.  Someone calls the entrypoint
+2. The entrypoint forwards the arguments to the processor
+3. The processor asks instruction.rs to decode the instruction_data
+ argument from the entrypoint function.
+4. Using the decoded data, the processor will now decide
+ which processing function to use to process the request.
+5. The processor may use state.rs to encode state into or decode
+ the state of an account which has been passed into the entrypoint.
+
+ lib.rs -> registering modules
+ entrypoint.rs -> entrypoint to the program
+ instruction.rs -> program API, (de)serializing instruction data
+ processor.rs -> program logic 
+ state.rs -> program objects, (de)serializing state 
+ error.rs -> program specific errors
+
+ The analogy is that the customer(caller) calls the frontdesk(entrypoint) then it forwards the request to Mr.Processor. Mr.Processor will then
+ consult the manual(instruction.rs) to interpret(decode) the request.After decoding, Mr.Processor will decide what processing function
+ to use to execute the request. Mr processor can use editor (state.rs ) to encode and decode the state (set of data) of the account.
+
+ what is a state? -> set of data
+
+ The global state is a set of data. Most common implementation of a global state is a database.
+
+The global state is mutable. It can be changed with operations that nodes write to the ledger.
+ For example, a database entry with the asset owner name can be changed, so that a new person owns the asset.
+
+>each program is processed by its BPF Loader and has an entrypoint whose structure depends on which BPF Loader is used
+>accounts are used to store state
+>accounts are owned by programs
+>only the account owner may debit an account and adjust its data
+>all accounts to be written to or read must be passed into the entrypoint
