@@ -1,0 +1,3 @@
+the only way for you to own a token is to own a token account that has some token balance.
+for an escrow acc, it will need to have a token acc to hold the A user's token. one way is to create a temp token acc which A user will 
+transfer the token program ownership to the escrow acc. 
