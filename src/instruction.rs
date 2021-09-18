@@ -24,18 +24,18 @@ pub enum EscrowInstruction {
 }
 impl EscrowInstruction {
     /// Unpacks a byte buffer into a [EscrowInstruction](enum.EscrowInstruction.html).
-    pub fn unpack(input: &[u8]) -> Result<Self, ProgramError> {
-        let (tag, rest) = input.split_first().ok_or(InvalidInstruction)?;
+    pub fn unpack(input: &[u8]) -> Result<Self, ProgramError> { //input is a borrowed read only u8, returns a OK or ProgrammError
+        let (tag, rest) = input.split_first().ok_or(InvalidInstruction)?; // create var (tag, rest) then split the first element, if it is Ok then proceed. else InvalidInstruction
 
-        Ok(match tag {
-            0 => Self::InitEscrow {
+        Ok(match tag { //match tag to 0 or the signer
+            0 => Self::InitEscrow { // if match, release the escrow account
                 amount: Self::unpack_amount(rest)?,
             },
-            _ => return Err(InvalidInstruction.into()),
+            _ => return Err(InvalidInstruction.into()), //if not a match, error
         })
     }
 
-    fn unpack_amount(input: &[u8]) -> Result<u64, ProgramError> {
+    fn unpack_amount(input: &[u8]) -> Result<u64, ProgramError> { //amount in the escrow, returns(Ok) the amount
         let amount = input
             .get(..8)
             .and_then(|slice| slice.try_into().ok())
